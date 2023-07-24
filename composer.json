@@ -3,7 +3,7 @@
     "description": "基本抽奖算法",
     "type": "library",
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.3"
     },
     "require-dev": {
     },
