@@ -38,10 +38,10 @@ class Lottery
 
     /**
      * 执行抽奖
-     * @param $prize_arr
+     * @param array $prize_arr
      * @return array
      */
-    public static function exec($prize_arr)
+    public static function exec(array $prize_arr)
     {
         return (new self)->run($prize_arr);
 
@@ -49,10 +49,10 @@ class Lottery
 
     /**
      *
-     * @param $prize_arr
+     * @param array $prize_arr
      * @return array
      */
-    public function build_pend_list($prize_arr): array
+    public function build_pend_list(array $prize_arr): array
     {
         $pendingArr = [];
         foreach ($prize_arr as $k => $v) {

@@ -1,0 +1,23 @@
+{
+    "name": "hahadu/lottery-function",
+    "description": "基本抽奖算法",
+    "type": "library",
+    "require": {
+        "php": ">=7.3",
+    },
+    "require-dev": {
+    },
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "hahadu",
+            "email": "582167246@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Hahadu\\Lottery\\": "src/"
+        }
+    },
+        "minimum-stability": "dev"
+}
