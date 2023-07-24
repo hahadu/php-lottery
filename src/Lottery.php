@@ -108,7 +108,7 @@ class Lottery
 //            unset($item['prorate']);
 //            return $item;
 //        },$array);
-//    }
+    }
 
     /**
      * 返回除搜索结果以为的数组
