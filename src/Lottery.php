@@ -2,13 +2,11 @@
 
 namespace Hahadu\Lottery;
 
-use Illuminate\Support\Arr;
-use Hahadu\Helper\ArrayHelper;
-
 class Lottery
 {
 
-    protected $prize_data = [];
+    /** @var array  */
+    protected $read_list = [];
     /**
      * 概率算法获取中奖id
      * @param $proArr
@@ -69,27 +67,35 @@ class Lottery
      * @return array
      */
     public function run($prize_arr){
-        $this->prize_data = $prize_arr;
-        //如果中奖数据是放在数据库里，这里就需要进行判断中奖数量
+        $prize = $this->startPrize($prize_arr);
+        $res['prize'] = $prize; //抽中的奖项
+        $res['list'] = $this->shuffleUnsetPrize($prize['id']);
+        return $res;
+    }
 
+    public function startPrize($prize_arr)
+    {
+        $this->read_list = $prize_arr;
         //在中1、2、3等奖的，如果达到最大数量的则unset相应的奖项，避免重复中大奖
         //总概率（prorate总和）等于100%
-
         $pendingArr = $this->build_pend_list($prize_arr);
-
         $prize_id = $this->get_prize($pendingArr); //根据概率获取奖项id
+        return $this->search($prize_id);
+    }
 
-        $res['prize'] = $this->search($prize_id)[0]; //中奖项
-
+    /**
+     * 未奖的奖项列表
+     * @param $prize_id
+     * @return array
+     */
+    protected function shuffleUnsetPrize($prize_id)
+    {
         //将中奖项从数组中剔除，剩下未中奖项，如果是数据库验证，这里可以省掉
         $unset_prize = $this->search_filter($prize_id);
 
         shuffle($unset_prize); //打乱数组顺序
-
-        $res['list'] = $unset_prize;
-        return $res;
+        return $unset_prize;
     }
-
     /**
      * 搜索匹配结果相同的数组
      * @param $id
@@ -97,17 +103,12 @@ class Lottery
      */
     private function search($id): array
     {
-        return array_values(array_filter($this->prize_data,function ($item)use($id){
+        return array_values(array_filter($this->read_list,function ($item)use($id){
             if($item['id']==$id){
                 return $item;
             }
             return false;
-        }));
-
-//        return array_map(function ($item){
-//            unset($item['prorate']);
-//            return $item;
-//        },$array);
+        }))[0];
     }
 
     /**
@@ -117,16 +118,12 @@ class Lottery
      */
     private function search_filter($id): array
     {
-        return array_values(array_filter($this->prize_data,function ($item)use($id){
+        return array_values(array_filter($this->read_list,function ($item)use($id){
             if($item['id']!=$id){
                 return $item;
             }
             return false;
         }));
-//        return array_map(function ($item){
-//            unset($item['prorate']);
-//            return $item;
-//        },$array);
 
     }
 

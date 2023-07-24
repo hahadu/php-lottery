@@ -1,10 +1,10 @@
 # php-lottery
 
-基本抽奖算法
+lottery base class
 
 ```
 array[id] id
-array[prize] 名称
+array[prize] name
 array[prorate] 中奖率 为0永远不中，100必中 数组中中奖率总和=100% 
 ```
 
