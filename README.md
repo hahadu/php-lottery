@@ -5,7 +5,7 @@
 ```
 array[id] id
 array[prize] 名称
-array[prorate] 中奖率 数组中中奖率总和=100% 
+array[prorate] 中奖率 为0永远不中，100必中 数组中中奖率总和=100% 
 ```
 
 ```php
