@@ -2,6 +2,12 @@
 
 基本抽奖算法
 
+```
+array[id] id
+array[prize] 名称
+array[prorate] 中奖率 数组中中奖率总和=100% 
+```
+
 ```php
     $prize_arr = [
 
