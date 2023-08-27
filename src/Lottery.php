@@ -76,8 +76,7 @@ class Lottery
     public function startPrize($prize_arr)
     {
         $this->read_list = $prize_arr;
-        //在中1、2、3等奖的，如果达到最大数量的则unset相应的奖项，避免重复中大奖
-        //总概率（prorate总和）等于100%
+          //总概率（prorate总和）等于100%
         $pendingArr = $this->build_pend_list($prize_arr);
         $prize_id = $this->get_prize($pendingArr); //根据概率获取奖项id
         return $this->search($prize_id);
